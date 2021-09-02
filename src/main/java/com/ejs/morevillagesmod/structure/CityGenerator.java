@@ -24,13 +24,15 @@ import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
-public class FortifiedVillageGenerator {
+public class CityGenerator {
    static final BlockPos DEFAULT_POSITION = new BlockPos(4, 0, 15);
-   private static final Identifier[] REGULAR_TEMPLATES = new Identifier[]{new Identifier("morevillagesmod","fort_village/village1")};
+   private static final Identifier[] REGULAR_TEMPLATES = new Identifier[]{new Identifier("morevillagesmod","city/city_block1"), new Identifier("morevillagesmod","city/city_block2"), new Identifier("morevillagesmod","city/city_block3"), new Identifier("morevillagesmod","city/city_block4"), new Identifier("morevillagesmod","city/city_block5")};
 
-   public static void addParts(StructureManager structureManager, BlockPos pos, BlockRotation rotation, StructurePiecesHolder structurePiecesHolder, Random random, DefaultFeatureConfig config) {
-      Identifier identifier = (Identifier)Util.getRandom(REGULAR_TEMPLATES, random);
-      structurePiecesHolder.addPiece(new FortifiedVillageGenerator.Piece(structureManager, identifier, pos, rotation, false));
+   public static void addParts(StructureManager structureManager, BlockPos pos, BlockRotation rotation, StructurePiecesHolder structurePiecesHolder, Random random, DefaultFeatureConfig config, BlockPos[] offsets) {
+       for(int i=0; i<offsets.length;i++) {
+    	   Identifier identifier = (Identifier)Util.getRandom(REGULAR_TEMPLATES, random);
+    	   structurePiecesHolder.addPiece(new CityGenerator.Piece(structureManager, identifier, offsets[i], rotation, false));
+       }
    }
 
    public static class Piece extends SimpleStructurePiece {
@@ -51,14 +53,9 @@ public class FortifiedVillageGenerator {
       }
 
       private static StructurePlacementData createPlacementData(BlockRotation rotation) {
-         return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE).setPosition(FortifiedVillageGenerator.DEFAULT_POSITION).addProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+         return (new StructurePlacementData()).setRotation(rotation).setMirror(BlockMirror.NONE).setPosition(CityGenerator.DEFAULT_POSITION).addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
       }
 
-      public boolean generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos pos) {
-         int i = chunkGenerator.getHeight(this.pos.getX(), this.pos.getZ(), Heightmap.Type.WORLD_SURFACE, world);
-         this.pos = new BlockPos(this.pos.getX(), i, this.pos.getZ());
-         return super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, pos);
-      }
 
 	@Override
 	protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess world, Random random,
