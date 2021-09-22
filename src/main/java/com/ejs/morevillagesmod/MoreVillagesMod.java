@@ -4,6 +4,8 @@ import com.ejs.morevillagesmod.structure.City;
 import com.ejs.morevillagesmod.structure.CityGenerator;
 import com.ejs.morevillagesmod.structure.FortifiedVillage;
 import com.ejs.morevillagesmod.structure.FortifiedVillageGenerator;
+import com.ejs.morevillagesmod.structure.Lighthouse;
+import com.ejs.morevillagesmod.structure.LighthouseGenerator;
 import com.ejs.morevillagesmod.structure.MushroomHouse;
 import com.ejs.morevillagesmod.structure.MushroomHouseGenerator;
 
@@ -35,27 +37,38 @@ public class MoreVillagesMod implements ModInitializer {
 	  public static final StructurePieceType CITY_PIECE = CityGenerator.Piece::new;
 	  private static final StructureFeature<DefaultFeatureConfig> CITY_STRUCTURE = new City(DefaultFeatureConfig.CODEC);
 	  private static final ConfiguredStructureFeature<?, ?> CITY_CONFIGURED = CITY_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
+	  
+	  public static final StructurePieceType LIGHTHOUSE_PIECE = LighthouseGenerator.Piece::new;
+	  private static final StructureFeature<DefaultFeatureConfig> LIGHTHOUSE_STRUCTURE = new Lighthouse(DefaultFeatureConfig.CODEC);
+	  private static final ConfiguredStructureFeature<?, ?> LIGHTHOUSE_CONFIGURED = LIGHTHOUSE_STRUCTURE.configure(DefaultFeatureConfig.DEFAULT);
 	 
 	  @Override
 	  public void onInitialize() {
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "fort_village_piece"), FORT_VILLAGE_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "fortified_village"), FORT_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(32, 8, 10479212)
+	      .defaultConfig(100, 8, 10479212)
 	      .adjustsSurface()
 	      .register();
 	    
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "mushroom_house_piece"), MUSHROOM_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "mushroom_house"), MUSHROOM_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(32, 8, 10236712)
+	      .defaultConfig(100, 8, 10236712)
 	      .adjustsSurface()
 	      .register();
 	    
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "city_piece"), CITY_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "city"), CITY_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(32, 8, 101512)
+	      .defaultConfig(100,40, 101512)
+	      .adjustsSurface()
+	      .register();
+	    
+	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "lighthouse_piece"), LIGHTHOUSE_PIECE);
+	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "lighthouse"), LIGHTHOUSE_STRUCTURE)
+	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+	      .defaultConfig(100,40, 127693)
 	      .adjustsSurface()
 	      .register();
 	 
@@ -70,5 +83,9 @@ public class MoreVillagesMod implements ModInitializer {
 	    RegistryKey<ConfiguredStructureFeature<?, ?>> cityConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, new Identifier("morevillagesmod", "city"));
 	    BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new Identifier("morevillagesmod", "city"), CITY_CONFIGURED);
 	    BiomeModifications.addStructure(BiomeSelectors.foundInOverworld(), cityConfigured);
+	    
+	    RegistryKey<ConfiguredStructureFeature<?, ?>> lighthouseConfigured = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, new Identifier("morevillagesmod", "lighthouse"));
+	    BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new Identifier("morevillagesmod", "lighthouse"), LIGHTHOUSE_CONFIGURED);
+	    BiomeModifications.addStructure(BiomeSelectors.categories(Category.BEACH), lighthouseConfigured);
 	  }
 }
