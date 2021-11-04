@@ -47,28 +47,28 @@ public class MoreVillagesMod implements ModInitializer {
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "fort_village_piece"), FORT_VILLAGE_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "fortified_village"), FORT_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(100, 8, 10479212)
+	      .defaultConfig(Integer.parseInt(Config.FORT_VILLAGE_SPACING), Integer.parseInt(Config.FORT_VILLAGE_SEPARATION), Integer.parseInt(Config.FORT_VILLAGE_SALT))
 	      .adjustsSurface()
 	      .register();
 	    
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "mushroom_house_piece"), MUSHROOM_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "mushroom_house"), MUSHROOM_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(100, 8, 10236712)
+	      .defaultConfig(Integer.parseInt(Config.MUSHROOM_SPACING), Integer.parseInt(Config.MUSHROOM_SEPARATION), Integer.parseInt(Config.MUSHROOM_SALT))
 	      .adjustsSurface()
 	      .register();
 	    
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "city_piece"), CITY_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "city"), CITY_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(100,40, 101512)
+	      .defaultConfig(Integer.parseInt(Config.CITY_SPACING), Integer.parseInt(Config.CITY_SEPARATION), Integer.parseInt(Config.CITY_SALT))
 	      .adjustsSurface()
 	      .register();
 	    
 	    Registry.register(Registry.STRUCTURE_PIECE, new Identifier("morevillagesmod", "lighthouse_piece"), LIGHTHOUSE_PIECE);
 	    FabricStructureBuilder.create(new Identifier("morevillagesmod", "lighthouse"), LIGHTHOUSE_STRUCTURE)
 	      .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-	      .defaultConfig(100,40, 127693)
+	      .defaultConfig(Integer.parseInt(Config.LIGHTHOUSE_SPACING), Integer.parseInt(Config.LIGHTHOUSE_SEPARATION), Integer.parseInt(Config.LIGHTHOUSE_SALT))
 	      .adjustsSurface()
 	      .register();
 	 

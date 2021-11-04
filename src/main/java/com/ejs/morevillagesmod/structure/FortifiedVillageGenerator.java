@@ -2,6 +2,8 @@ package com.ejs.morevillagesmod.structure;
 
 import java.util.Random;
 
+import com.ejs.morevillagesmod.MoreVillagesMod;
+
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.SimpleStructurePiece;
@@ -36,7 +38,7 @@ public class FortifiedVillageGenerator {
    public static class Piece extends SimpleStructurePiece {
 
       public Piece(StructureManager manager, Identifier identifier, BlockPos pos, BlockRotation rotation, boolean grounded) {
-         super(StructurePieceType.JIGSAW, 0, manager, identifier, identifier.toString(), createPlacementData(rotation), pos);
+         super(MoreVillagesMod.FORT_VILLAGE_PIECE, 0, manager, identifier, identifier.toString(), createPlacementData(rotation), pos);
       }
 
       public Piece(ServerWorld world, NbtCompound nbt) {
